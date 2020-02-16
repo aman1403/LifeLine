@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+    <title> Log In </title>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, user-scalable=no" />
+      <link rel="manifest" href="manifest.json" />
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    </head>
+  <style>
+  body {background-image: url("/images/logo.svg");}
+  </style>
+    <body>
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #dc3545!important">
+            <a class="navbar-brand text-white" href="#" style="font-family: 'Montserrat', sans-serif;">
+              <img src="/images/logo.png" height="25px" style="margin-right:8px;">
+              LifeLine
+            </a>
+          </nav>   
+      <div class="row" style='padding-top:30px !important'>     
+        <div class="col s12 m6 offset-m3">
+            <div class="card mx-auto ">
+              <div class="card-content">
+                  <form  id="login" method="POST" action="/authenticate">
+                    <div class="row">
+                      <div class="input-field col s12">
+                          <input type="text" name="user" class="materialize-textarea" required >
+                          <label for="user">User</label>
+                      </div>
+                      <div class="input-field col s12">
+                          <input type="password" name="pass" required  class="materialize-textarea" >
+                          <label for="pass">Password</label>
+                      </div>
+                    </div>
+                    <div class="row" id="error">
+                    </div>
+                    <div class="row">
+                    <center>
+                      <div class="col m12 s6"> 
+                        <button class="btn waves-effect waves-teal" style="background-color: #dc3545!important"id ="loginbtn" type="submit" name="action">Login
+                        <i class="material-icons right">send</i>
+                        </button>
+                      </div>
+                      </center>
+                    </div>  
+                    </form>
+                      
+                    <div class="row pt-2">
+                      <center>
+                          <span >Are you a new user? <a href="/users">Sign up</a></span>
+
+                      </center>
+
+                    </div>             
+              </div>
+            </div>   
+        </div>
+        </div>
+        </div>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+      <script>
+  
+      </script>
+    </body>
+  </html>

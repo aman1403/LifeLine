@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Successful</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <div class="alert alert-success" id="verify">
+      <div class="col-2">
+      <div class="input-group">
+      <form id="signup_cus" enctype="multipart/form-data" method="POST" action="/image">
+      Upload Image
+      <input class="input--style-1" type="file" placeholder="Resume File" name="image">
+      <button type="submit">Submit</button>
+      </form>
+      </div>
+      </div>
+  </div>
+</div>
+<script>
+  const toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+});
+
+async function Main() {
+   const file = document.querySelector('#myfile').files[0];
+   console.log(await toBase64(file));
+}
+
+Main();
+  </script>
+</body>
+</html>

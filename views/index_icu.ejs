@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+        #map {
+            width: 95%;
+            height: 100%;
+        }
+        html, 
+        body {
+            height: 100%;
+        }
+        #panel {
+            width: 100%;
+            height: 400px;
+        }
+        .cont {
+          position: relative;
+          height: 100%;
+        }
+        .tag {
+          float: left;
+          position: absolute;
+          left: 0px;
+          top: 0px;
+          z-index: 1000;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap" rel="stylesheet">
+    <title>LifeLine</title>
+    <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
+  </head>
+  <body style="margin: 0px;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-danger" >
+      <a class="navbar-brand text-white" href="#" style="font-family: 'Montserrat', sans-serif;">
+        <img src="/images/logo.png" height="35px">
+        LifeLine
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/first">Home Page</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/logout">Logout</a>
+          </li>
+        </ul>
+        
+      </div>
+    </nav>
+    <div class="cont">
+        <div class="input-group tag">
+            <select class="custom-select col-sm-1 col-md-1">
+              <option selected>ICU</option>
+              <option value="1">Blood</option>
+              <option value="2">Medicine</option>
+              <option value="3">Morgue</option>
+            </select>        
+            <input type="text" class="form-control" name="x" placeholder="Search term...">
+            <div class="row">
+                <center>
+                    <div class="col m12 s6"> 
+                       <button class="btn waves-effect waves-light" id ="signup_cusbtn" style="background-color: #dc3545!important" type="submit" name="action">Search
+                       </button>
+                    </div>
+                 </center>
+              
+                </div>
+                
+        </div>
+        <div id="map" style="width:100%;"></div>
+    </div>
+
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        /**
+         * Moves the map to display over Berlin
+         *
+         * @param  {H.Map} map      A HERE Map instance within the application
+         */
+         var lat= 15.52746, lng=74.9325569;
+        function moveMap(map, lat, lng){
+          map.setCenter({lat:lat, lng:lng});
+          map.setZoom(14);
+        }
+
+        function getLocation(map) {
+          if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(function(location) {
+              moveMap(map, location.coords.latitude, location.coords.longitude);
+              addSVGMarkers(map, location.coords.latitude, location.coords.longitude);
+            });
+          }
+        }
+
+        /**
+         * Adds SVG marker for given lat lng.
+         *
+         * @param  {H.Map} map      A HERE Map instance within the application
+         */
+        function addSVGMarkers(map, lat, lng){
+          //Create the svg mark-up
+          var icon = new H.map.Icon("https://img.icons8.com/bubbles/50/000000/user-location.png");
+          addMarkersToMap(map, lat, lng, icon);
+        }
+
+        /**
+         * Adds markers to the map.
+         *
+         * @param  {H.Map} map      A HERE Map instance within the application
+         */
+         function addMarkersToMap(map, lat, lng, icon) {
+            var parisMarker = new H.map.Marker({lat:lat, lng: lng}, {icon:icon});
+            map.addObject(parisMarker);
+        }
+
+        /**
+         * Boilerplate map initialization code starts below:
+         */
+
+        //Step 1: initialize communication with the platform
+        // In your own code, replace variable window.apikey with your own apikey
+        var platform = new H.service.Platform({
+          apikey: 'Ht0V9hgENzHzVOgMjgihwlkAam5zNSImBii4R5oGXaM'
+        });
+        var defaultLayers = platform.createDefaultLayers();
+
+        //Step 2: initialize a map - this map is centered over Europe
+        var map = new H.Map(document.getElementById('map'),
+          defaultLayers.vector.normal.map,{
+          center: {lat:50, lng:5},
+          zoom: 4,
+          pixelRatio: window.devicePixelRatio || 1
+        });
+        // add a resize listener to make sure that the map occupies the whole container
+        window.addEventListener('resize', () => map.getViewPort().resize());
+
+        //Step 3: make the map interactive
+        // MapEvents enables the event system
+        // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
+        var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+
+        // Create the default UI components
+        var ui = H.ui.UI.createDefault(map, defaultLayers);
+
+        // Now use the map as required...
+        window.onload = function () {
+          moveMap(map, 15.5274675, 74.9325569);
+          addSVGMarkers(map, 15.5274675, 74.9325569);
+          getLocation(map);
+        }
+    </script>
+  </body>
+</html>

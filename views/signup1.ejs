@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title> Log In </title>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, user-scalable=no" />
+      <link rel="manifest" href="manifest.json" />
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   </head>
+   <style>
+      .switch label input[type=checkbox]:checked+.lever:after {
+    background-color: #FF5252 !important;
+}
+.switch label input[type=checkbox]:checked+.lever {
+    background-color: #FF5252 !important;
+}
+   </style>
+   <body>
+      <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #dc3545!important">
+                  <a class="navbar-brand text-white" href="#" style="font-family: 'Montserrat', sans-serif;">
+                    <img src="find.svg" height="25px" style="margin-right:8px;">
+                    LifeLine
+                  </a>
+                </nav>   
+         <div class="row" style="padding-top: 30px;">
+            <center>
+                  <div class="switch" >
+                        <label>
+                          User
+                          <input type="checkbox" id="type">
+                          <span class="lever" ></span>
+                          Hospital
+                        </label>
+                      </div>
+
+            </center>
+              
+         </div>
+         <div class="row" id="usr">
+            <div class="col s12 m6 offset-m3">
+               <div class="card mx-auto ">
+                  <div class="card-content">
+                     <form id="signup_cus" method="POST" action="/users">
+                        <div class="row">
+                           <div class="input-field col s12">
+                              <input type="text" name="user" class="materialize-textarea" required >
+                              <label for="user">User</label>
+                           </div>
+                           <div class="input-field col s12">
+                              <input type="text" name="email" class="materialize-textarea" required >
+                              <label for="user">Email</label>
+                           </div>
+                           <div class="input-field col s12">
+                              <input type="text" name="addr" class="materialize-textarea" required >
+                              <label for="user">Address</label>
+                           </div>
+                           <div class="input-field col s12">
+                              <input type="text" name="city" class="materialize-textarea" required >
+                              <label for="user">City</label>
+                           </div>
+                           <div class="input-field col s12">
+                              <input type="text" name="strCode" class="materialize-textarea" required >
+                              <label for="user">StreetCode</label>
+                           </div>
+                           <div class="input-field col s12">
+                              <input type="text" name="state" class="materialize-textarea" required >
+                              <label for="user">State</label>
+                           </div>
+                           <div class="input-field col s12">
+                              <input type="text" name="gender" class="materialize-textarea" required >
+                              <label for="user">Gender</label>
+                           </div>
+                           <div class="input-field col s12">
+                              <input type="text" name="dob" class="materialize-textarea" required >
+                              <label for="user">DOB</label>
+                           </div>
+                           <div class="input-field col s12">
+                              <input type="text"name="bldgrp" class="materialize-textarea" required >
+                              <label for="user">Blood Group</label>
+                           </div>
+                           <div class="input-field col s12">
+                              <input type="text" name="contact" class="materialize-textarea" required >
+                              <label for="user">Contact No</label>
+                           </div>
+                           <div class="input-field col s12">
+                              <input type="password" name="pass" required  class="materialize-textarea" required>
+                              <label for="pass">Password</label>
+                           </div>
+                        </div>
+                        <div class="row">
+                        <center>
+                           <div class="col m12 s6"> 
+                              <button class="btn waves-effect waves-light" id ="signup_cusbtn" style="background-color: #dc3545!important" type="submit" name="action">Signup
+                              <i class="material-icons right">send</i>
+                              </button>
+                           </div>
+                        </center>
+                     </div>
+                     </form>            
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="row" id="hos">
+            <div class="col s12 m6 offset-m3">
+               <div class="card mx-auto ">
+                  <div class="card-content">
+                     <form id="signup_hos" action="">
+                        <div class="row">
+                           <div class="input-field col s12">
+                              <input type="text" name="hname" class="materialize-textarea" required >
+                              <label for="user">Name</label>
+                           </div>
+                           <div class="input-field col s12">
+                              <input type="text" name="hemail" class="materialize-textarea" required >
+                              <label for="user">Email</label>
+                           </div>
+                           <div class="input-field col s12">
+                              <input type="text" name="haddr" class="materialize-textarea" required >
+                              <label for="user">Street Address</label>
+                           </div>
+                           <div class="input-field col s12">
+                              <input type="text" name="hcity" class="materialize-textarea" required >
+                              <label for="user">City</label>
+                           </div>
+                           <div class="input-field col s12">
+                              <input type="text" name="hzip" class="materialize-textarea" required >
+                              <label for="user">Zipcode</label>
+                           </div>
+                           <div class="input-field col s12">
+                              <input type="text" name="hstate" class="materialize-textarea" required >
+                              <label for="user">State</label>
+                           </div>
+                           <div class="input-field col s12">
+                              <input type="text" name="hcontact" class="materialize-textarea" required >
+                              <label for="user">ContactNo</label>
+                           </div>
+                           <div class="input-field col s12">
+                              <input type="password" name="hpass" required  class="materialize-textarea" >
+                              <label for="pass">Password</label>
+                           </div>
+                        </div>
+                        <div class="row" id="error">
+                        </div>
+                     </form>
+                     <div class="row">
+                        <center>
+                           <div class="col m12 s6"> 
+                              <button class="btn waves-effect waves-light" id ="signup_hosbtn" style="background-color: #dc3545!important" type="submit" name="action">Signup
+                              <i class="material-icons right">send</i>
+                              </button>
+                           </div>
+                        </center>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+      <script> 
+      $( document ).ready(function() {
+         $("#usr").show();
+         $("#hos").hide();
+      });
+      $("#type").change(function(event){
+         if (this.checked){
+            $("#usr").hide();
+            $("#hos").show();
+         } else {
+            $("#hos").hide();
+            $("#usr").show();
+         }
+      });
+      </script>
+   </body>
+</html>

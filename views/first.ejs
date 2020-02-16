@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta http-equiv="Content-Security-Policy" content="block-all-mixed-content">
+
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link rel="manifest" href="/manifest.json">
+    <title>LifeLine</title>
+    <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
+    <style type="text/css">
+      table {
+          table-layout: fixed;
+          width: 100%;
+      }
+          table td {
+              width: 33%;
+              padding: 16px;
+              background-color: white;
+          }
+      .icon-text {
+        color: gray;
+      }
+      body{
+        background-color: #f9f9f9;
+      }
+    </style>
+  </head>
+  <body style="margin: 0px;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-danger" >
+      <a class="navbar-brand text-white" href="index.html" style="font-family: 'Montserrat', sans-serif;">
+        <img src="/images/logo.png" height="35px">
+        LifeLine
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/logout">Logout</a>
+          </li>
+        </ul>
+        
+      </div>
+    </nav>
+    <div class="container" style="padding: 20px;">
+      <table>
+        <tr>
+          <td align="center">
+            <a href="/icu">
+              <img src="/images/icu.png" height="40px">
+              <div class="icon-text">ICU</div>
+            </a>
+          </td>
+          <td align="center">
+            <a href="/getblood">
+              <img src="/images/blood.png" height="40px">
+              <div class="icon-text">Blood</div>
+            </a>
+          </td>
+          <td align="center">
+            <a href="/medi">
+              <img src="/images/medicine.png" height="40px">
+              <div class="icon-text">Medicine</div>
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td align="center">
+            <a href="/getmor">
+              <img src="/images/morgue.png" height="40px">
+              <div class="icon-text">Morgue</div>
+            </a>
+          </td>
+          <td align="center">
+            <a href="#">
+              <img src="/images/statistics.png" height="40px">
+              <div class="icon-text">Statistics</div>
+            </a>
+          </td>
+          <td align="center">
+            <a href="/getperson">
+              <img src="/images/personal_info.png" height="40px">
+              <div class="icon-text">Personal</div>
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td align="center">
+            <a href="/getwalet">
+              <img src="/images/wallet.png" height="40px">
+              <div class="icon-text">Wallet</div>
+            </a>
+          </td>
+          <td align="center">
+            <a href="">
+              <img src="/images/report.png" height="40px">
+              <div class="icon-text">Report</div>
+            </a>
+          </td>
+          <td align="center">
+            <a href="/getabout">
+              <img src="/images/about.jpeg" height="40px">
+              <div class="icon-text">About</div>
+            </a>
+          </td>
+        </tr>
+      </table>
+      <div style="padding: 4px;">
+        <img src="/images/banner_2.png" width="100%">
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Bringing Health Services close to you</h5>
+          <p class="card-text">Emergency? Don't worry. You've got a lifeline left.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  </body>
+</html>

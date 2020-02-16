@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Customer Dashboard </title>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, user-scalable=no" />
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   </head>
+   <body>
+      <ul id="slide-out" class="sidenav">
+         <li>
+            <div class="user-view">
+               <div class="background">
+                  <img src="health.jpeg">
+               </div>
+               <!--<a href="#user"><img class="circle" src="yuna.jpg"></a> -->
+               <a href="#name"><span class="white-text name">Hi user</span></a>
+               <a href="#email"><span class="white-text email">jkk</span></a>
+            </div>
+         </li>
+         <li><a class="modal-trigger waves-effect" href="#uploadmodal">Hi user</a></li>
+         <li>
+            <div class="divider"></div>
+         </li>
+         <li><a class="waves-effect" href="">ICU Finder</a></li>
+         <li><a class="waves-effect" href="donor.html">Blood Donation</a></li>
+         <li><a class="waves-effect" href="">Report Logger</a></li>
+         <li><a class="waves-effect" href="">Medicine Check</a></li>
+         <li><a class="waves-effect" onclick="" href="">Medicine Substitute</a></li>
+         <li><a class="waves-effect" onclick="" href="">Logout</a></li>
+      </ul>
+      <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <div class="row s12">
+      <div id="donor" class="modal">
+      <div class="modal-content">
+         <h4>Donor</h4>
+         <form id="donateform" method="POST" action="/appointments/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJibG9vZEdyb3VwIjoiQSsiLCJlbWFpbCI6ImFsdXRocmExNDAzQGdtYWlsLmNvbSIsImlhdCI6MTU4MTcxNDUyMCwiZXhwIjoxMTUxMTEzMTQ1MjB9.ftNusg2K9Z4pDp2M_DfAQPAzmmsRSuDZeI3xlzCFQ6M/5e46f614d89471231d6f491c">
+            <div class="row">
+               <div class="input-field col s12">
+                  <input type="text" name="name" class="materialize-textarea" required >
+                  <label for="user">User</label>
+               </div>
+               <div class="input-field col s12">
+                  <input name="grp" required  class="materialize-textarea" >
+                  <label for="grp">Blood Group</label>
+               </div>
+               <div class="input-field col s12">
+                  <input  name="date" required  class="materialize-textarea" >
+                  <label for="date">Appointment Date</label>
+               </div>
+               <div class="input-field col s12">
+                  <input  name="time" required  class="materialize-textarea" >
+                  <label for="time">Appointment Time</label>
+               </div>
+            </div>
+            <div class="modal-footer">
+               <button type="submit" class="btn btn-primary mb-2">Agree</button>
+         </div>
+         </form>
+         </div>
+         </div>
+         <div class="col s12 m6 offset-m3">
+            <div class="card large" style="height:900px;">
+               <div class="card-content" style="overflow:auto;">
+                  <span class="card-title">Donate</span>
+                  <form action="/hospitals/zipCode" name="donate" class="form-inline">
+                     <div class="form-group mx-sm-3 mb-2">
+                        <input  class="form-control" type="text" name="zip" placeholder="Zipcode">
+                     </div>
+                     <button type="submit" class="btn btn-primary mb-2">Search</button>
+                  </form>
+                  <table class="table table-striped">
+                     <thead>
+                    <tr>
+                      <th scope="col">Sr No.</th>
+                      <th scope="col">Hospital Name</th>
+                      <th scope="col">hospital City</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% for(var i =0 ;i < data.length; i++){%>
+                      <tr>
+                        <th scope="row"><%= i+1%> </td>
+                          <th scope="row"><%=data[i].HospitalName%></th>
+                          <td><%=jobs_description[i].HospitalCity%></td>
+                <!--           <td><%=jobs_description[i].jobstipend%></td>
+                          <td><a href="<%= jobs_description[i].companyurl %>"><%=jobs_description[i].companyname%></a></td> -->
+                          <td>
+                            <form action="/student/job_offers" method="POST">
+                              <input type="text" name="jobid" value="<%=jobs_description[i].id%>" hidden>
+                              <button type="submit" class="btn btn-primary" >Apply</button>
+                            </form>
+                          </td>
+                        </tr>
+                    <% } %>
+                  </tbody>
+                  </table>
+                  <span class="card-title">Search</span>
+                  <form action="/hospitals" id="search" class="form-inline">
+                     <div class="form-group mx-sm-3 mb-2">
+                        <input class="form-control" name="bldgrp" placeholder="Blood Group">
+                     </div>
+                     <div class="form-group mx-sm-3 mb-2">
+                        <input  class="form-control" name="zip" placeholder="Zip Code">
+                     </div>
+                     <button type="submit" class="btn btn-primary mb-2">Search</button>
+                     <table class="table table-striped">
+                        <thead>
+                           <tr>
+                              <th >Hospital</th>
+                              <th>Rating</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td >abc</td>
+                              <td>4.4</td>
+                           </tr>
+                           <tr>
+                              <td >abc</td>
+                              <td>4.4</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </form>
+               </div>
+            </div>
+         </div>
+   </div>
+
+      <!--JavaScript at end of body for optimized loading-->
+   </body>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+   <script>
+      $(document).ready(function(){
+        $('.sidenav').sidenav();
+        $(".modal").modal();
+      });
+      $(document).ready(function(){
+        $('.modal').modal();
+      });
+      
+   </script>
+</html>

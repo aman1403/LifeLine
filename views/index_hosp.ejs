@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+        #map {
+            width: 95%;
+            height: 100%;
+        }
+        html, 
+        body {
+            height: 100%;
+        }
+        #panel {
+            width: 100%;
+            height: 400px;
+        }
+        .cont {
+          position: relative;
+          height: 100%;
+        }
+        .tag {
+          float: left;
+          position: absolute;
+          left: 0px;
+          top: 0px;
+          z-index: 1000;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap" rel="stylesheet">
+    <title>LifeLine</title>
+    <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
+  </head>
+  <body style="margin: 0px;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-danger" >
+      <a class="navbar-brand text-white" href="#" style="font-family: 'Montserrat', sans-serif;">
+        <img src="images/logo.png" height="35px">
+        LifeLine
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/first">Home Page</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/logout">Logout</a>
+          </li>
+        </ul>
+        
+      </div>
+    </nav>
+    <div class="container">
+        <div class="row" style='padding-top:30px !important'>     
+            <div class="col s12 m6 offset-m3">
+                <div class="card mx-auto ">
+                  <div class="card-content">   
+                    <div class="row text-center">
+                        <div class="col-6 text-center pt-4">
+                      <h2><%=data.hospitalName%></h2></div>
+                      <div class="col-6 text-center pt-3">
+                        <img src="https://image.flaticon.com/icons/svg/504/504276.svg" class="img-rounded" width="100" height="100" alt="Cinque Terre"></div>
+                    </div>
+                    <div class="row">
+
+                      <div class="col-12 text-center">
+                          <table class="table table-borderless">
+                      
+                  <tbody>                 
+                      
+                        <tr>
+                          <td scope="row">City</td>
+                          <td><%=data.hospitalStreetAddress%></td>
+                        </tr>
+                        <tr>
+                          <td scope="row">Street Address</td>
+                          <td><%=data.hospitalStreetAddressy%></td>
+                        </tr>
+                        <tr>
+                          <td scope="row">Zip Code</td>
+                          <td><%=data.hospitalZipCode%></td>
+                        </tr>
+                        <tr>
+                          <td scope="row">State</td>
+                          <td><%=data.hospitalState%></td>
+                        </tr>
+                        <tr>
+                          <td scope="row">Contact No</td>
+                          <td><%=data.hospitalContactNumber%></td>
+                        </tr>
+                        <tr>
+                            <td scope="row">Booking Fees</td>
+                            <td><%=data.hospitalfees%></td>
+                          </tr>
+            
+                  </tbody>
+                            </table>
+  
+                      </div>
+                        
+                    </div>             
+                      
+                  </div>
+                  </div></div></div>
+                  <div class="row pt-2">
+    
+                    <div class="col-12 text-center">
+                        <button class="btn waves-effect waves-light bg-danger text-white" id ="navigate" style="width:100% !important"onclick="nav()">Navigate</button>
+                    </div>
+                   
+                  </div>
+    </div>
+    
+             
+            
+        
+    
+
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script>
+      function hell(){
+        Swal.fire({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes'
+}).then((result) => {
+  if (result.value) {
+    nav();
+  }
+})
+      }
+        function funC() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", '/users/check/<%=data.hospitalName%>', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({
+      "aman":"ji"
+    }));
+    xhr.onload = () => {
+      var resp = JSON.parse(`${xhr.response}`);
+      console.log(resp);
+      if(resp.message == 'success'){alert('PP');}
+      else{alert('Sorry');}
+};}
+      function nav(){
+        window.location.href = 'index4?x1=15.5274&y1=74.93&x2=<%=data.longitude%>&y2=<%=data.latitude%>' ;
+
+      }
+    
+    </script>
+    
+  </body>
+</html>

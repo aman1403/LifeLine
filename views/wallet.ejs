@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+        #map {
+            width: 95%;
+            height: 100%;
+        }
+        html, 
+        body {
+            height: 100%;
+        }
+        #panel {
+            width: 100%;
+            height: 400px;
+        }
+        .cont {
+          position: relative;
+          height: 100%;
+        }
+        .tag {
+          float: left;
+          position: absolute;
+          left: 0px;
+          top: 0px;
+          z-index: 1000;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap" rel="stylesheet">
+    <title>LifeLine</title>
+    <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
+  </head>
+  <body style="margin: 0px;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-danger" >
+      <a class="navbar-brand text-white" href="#" style="font-family: 'Montserrat', sans-serif;">
+        <img src="images/logo.png" height="35px">
+        LifeLine
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/first">Home Page</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/logout">Logout</a>
+          </li>
+        </ul>
+        
+      </div>
+    </nav>
+    <div class="container">
+        <div class="row" style='padding-top:30px !important'>     
+            <div class="col s12 m6 offset-m3">
+                <div class="card mx-auto ">
+                  <div class="card-content">   
+                    <div class="row text-center">
+                        <div class="col-6 text-center pt-4">
+                      <h2>Wallet Credits</h2></div>
+                      <div class="col-6 text-center pt-3">
+                        <img src="/images/wallet.png" class="img-rounded" width="80" height="80" alt="Cinque Terre"></div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12 text-left pl-5">
+                          <h3><span><%=data%></span></h3>
+
+                      </div>
+                       
+                      
+                        
+                    </div>             
+                      
+                  </div>
+                  </div></div></div>
+
+    </div>
+    
+              

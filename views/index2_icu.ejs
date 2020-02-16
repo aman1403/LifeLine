@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+        #map {
+            width: 95%;
+            height: 100%;
+        }
+        html, 
+        body {
+            height: 100%;
+        }
+        #panel {
+            width: 100%;
+            height: 400px;
+        }
+        .cont {
+          position: relative;
+          height: 100%;
+        }
+        .tag {
+          float: left;
+          position: absolute;
+          left: 0px;
+          top: 0px;
+          z-index: 1000;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap" rel="stylesheet">
+    <title>LifeLine</title>
+    <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
+  </head>
+  <body style="margin: 0px;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-danger" >
+      <a class="navbar-brand text-white" href="#" style="font-family: 'Montserrat', sans-serif;">
+        <img src="images/logo.png" height="35px">
+        LifeLine
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/first">Home Page</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/logout">Logout</a>
+          </li>
+        </ul>
+        
+      </div>
+    </nav>
+    <div class="cont">
+      <h5><span class="badge badge-light" ><input type="checkbox" id="myCheck" onclick="func()"> Ventilator</span>
+      <span class="badge badge-light"><input type="checkbox" id="myCheck1" value="Defibriilator"onclick="func()"> Defibriilator</span>
+      <span class="badge badge-light"><input type="checkbox" id="myCheck2" value="Infusion" onclick="func()"> Infusion</span>
+      <span class="badge badge-light"><input type="checkbox" id="myCheck3" value="Monitors" onclick="func()"> Monitors</span></h5>
+      <div id="map" style="width:100%;"></div>
+      </div>
+
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        /**
+         * Moves the map to display over Berlin
+         *
+         * @param  {H.Map} map      A HERE Map instance within the application
+         */
+         var lat= 15.52746, lng=74.9325569;
+         function func() {
+           // body...
+           var checkbox = document.getElementById("myCheck");
+           var checkbox1 = document.getElementById("myCheck1");
+           var checkbox2 = document.getElementById("myCheck2");
+           var checkbox3 = document.getElementById("myCheck3");
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", '/hospitals/filters', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({
+    "checkbox":checkbox.checked,
+    "checkbox1":checkbox.checked,
+    "checkbox2":checkbox.checked,
+    "checkbox3":checkbox.checked,
+    "lat":lat,
+    "lng":lng
+    }));
+    xhr.onload = () => {
+      var resp = JSON.parse(`${xhr.response}`);
+  placeHospitals(map,resp.data,resp.names,resp.availibility);
+};
+
+         }
+         
+        function moveMap(map, lat, lng){
+          map.setCenter({lat:lat, lng:lng});
+          map.setZoom(14);
+        }
+
+        function getLocation(map) {
+          if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(function(location) {
+              moveMap(map, location.coords.latitude, location.coords.longitude);
+              lat = location.coords.latitude;
+              lng = location.coords.longitude;
+              addSVGMarkers(map, location.coords.latitude, location.coords.longitude);
+            });
+          }
+        }
+
+        /**
+         * Adds SVG marker for given lat lng.
+         *
+         * @param  {H.Map} map      A HERE Map instance within the application
+         */
+        function addSVGMarkers(map, lat, lng){
+          //Create the svg mark-up
+          var icon = new H.map.Icon("https://img.icons8.com/bubbles/50/000000/user-location.png");
+          addMarkersToMap(map, lat, lng, icon);
+        }
+
+        function addHostpitalMarkers(group, lat, lng, html){
+          //Create the svg mark-up
+          var icon = new H.map.Icon("https://image.flaticon.com/icons/svg/504/504276.svg", {size: {w: 40, h: 40}});
+          addInfoBubble(group, lat, lng, icon, html);
+        }
+
+        function addInfoBubble(group, lat, lng, icon, html) {
+            console.log(lat,lng,html);
+            var marker = new H.map.Marker({lat:lat, lng: lng}, {icon:icon});
+            marker.setData(html);
+            group.addObject(marker);
+        }
+
+        /**
+         * Adds markers to the map.
+         *
+         * @param  {H.Map} map      A HERE Map instance within the application
+         */
+         function addMarkersToMap(map, lat, lng, icon) {
+            var parisMarker = new H.map.Marker({lat:lat, lng: lng}, {icon:icon});
+            map.addObject(parisMarker);
+        }
+
+        function placeHospitals(map, data, names, availability) {
+          var group = new H.map.Group();
+          map.addObject(group);
+          // add 'tap' event listener, that opens info bubble, to the group
+          group.addEventListener('tap', function (evt) {
+            // event target is the marker itself, group is a parent event target
+            // for all objects that it contains
+            var bubble =  new H.ui.InfoBubble(evt.target.getGeometry(), {
+              // read custom data
+              content: evt.target.getData()
+            });
+            // show info bubble
+            ui.addBubble(bubble);
+          }, false);
+          //data = [[15.4182, 75.0483],[15.45,75.00],[15.44,74.99]];
+          //names = ["SDM Dharwad","Shreya Hopspital","Shree Krishna Children"];
+          //availability = [1, 3, 2];
+          for(var i=0; i<data.length; ++i){
+            addHostpitalMarkers(group, data[i][0], data[i][1],"<a href=\"name?name="+names[i]+"\">" +names[i] + "</a>"+"<br><img src='images/icu.png' width='20px' style='padding-right:10px'>" + availability[i]);
+          }
+          map.getViewModel().setLookAtData({
+            bounds: group.getBoundingBox()
+          });
+        }
+
+        /**
+         * Boilerplate map initialization code starts below:
+         */
+
+        //Step 1: initialize communication with the platform
+        // In your own code, replace variable window.apikey with your own apikey
+        var platform = new H.service.Platform({
+          apikey: 'Ht0V9hgENzHzVOgMjgihwlkAam5zNSImBii4R5oGXaM'
+        });
+        var defaultLayers = platform.createDefaultLayers();
+
+        //Step 2: initialize a map - this map is centered over Europe
+        var map = new H.Map(document.getElementById('map'),
+          defaultLayers.vector.normal.map,{
+          center: {lat:50, lng:5},
+          zoom: 4,
+          pixelRatio: window.devicePixelRatio || 1
+        });
+        // add a resize listener to make sure that the map occupies the whole container
+        window.addEventListener('resize', () => map.getViewPort().resize());
+
+        //Step 3: make the map interactive
+        // MapEvents enables the event system
+        // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
+        var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+
+        // Create the default UI components
+        var ui = H.ui.UI.createDefault(map, defaultLayers);
+        // Now use the map as required...
+        window.onload = function () {
+          //moveMap(map, 15.52746placeHospitals75, 74.9325569);
+          //addSVGMarkers(map, 15.5274675, 74.9325569);
+          getLocation(map);
+          var xhr = new XMLHttpRequest();
+    xhr.open("POST", '/hospitals/12', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({
+    "lat": lat,
+    "lng": lng
+    }));
+    xhr.onload = () => {
+      var resp = JSON.parse(`${xhr.response}`);
+      console.log(resp);
+  placeHospitals(map,resp.data,resp.names,resp.availibility);
+};
+
+    // console.log(data[1]);
+    // console.log(availibility);
+          
+        }
+    </script>
+  </body>
+</html>
